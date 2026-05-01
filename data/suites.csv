@@ -1,4 +1,4 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"","11246","Registro Internacional","ui","2026-05-01","passed","2026-05-01","Registro de empresas — Necsus","ui/signup.spec.ts","",""
-"","11371","Registro Nacional — Persona Física","ui","2026-05-01","passed","2026-05-01","Registro de empresas — Necsus","ui/signup.spec.ts","",""
-"","11185","Registro Nacional — Persona Moral","ui","2026-05-01","passed","2026-05-01","Registro de empresas — Necsus","ui/signup.spec.ts","",""
+"","11396","Registro Internacional","ui","2026-05-01","passed","2026-05-01","Registro de empresas — Necsus","ui/signup.spec.ts","",""
+"","11233","Registro Nacional — Persona Moral","ui","2026-05-01","passed","2026-05-01","Registro de empresas — Necsus","ui/signup.spec.ts","",""
+"","11537","Registro Nacional — Persona Física","ui","2026-05-01","passed","2026-05-01","Registro de empresas — Necsus","ui/signup.spec.ts","",""

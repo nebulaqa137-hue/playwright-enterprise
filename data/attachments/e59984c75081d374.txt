@@ -1,0 +1,11 @@
+[DataFactory] Persona Moral: {
+  "businessName": "SA de CV Reyna Hermanos",
+  "rfc": "QLK9309214K9",
+  "names": "Sara",
+  "firstSurname": "Solorzano Alvarado",
+  "secondSurname": "Rojas Tafoya",
+  "position": "Socio",
+  "mobilePhone": "3346771864",
+  "landLine": "5651021910",
+  "email": "lourdes51@testmail.com"
+}
