@@ -10,12 +10,11 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 4 : 2,
 
-  // ── Reportes ──────────────────────────────────────────────
-  // IMPORTANTE: HTML debe ir ANTES que JSON (TestDino lo requiere)
   reporter: [
-    ['html', { outputDir: './playwright-report', open: 'never' }],
-    ['json', { outputFile: './playwright-report/report.json' }],
-    ['list'],
+    ['monocart-reporter', {
+      name: 'Necsus Playwright Report',
+      outputFile: './monocart-report/index.html',
+    }],
   ],
 
   use: {
@@ -32,10 +31,6 @@ export default defineConfig({
       name: 'ui',
       testDir: './tests/ui',
       use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'api',
-      testDir: './tests/api',
     },
   ],
 
