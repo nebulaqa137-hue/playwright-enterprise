@@ -1,10 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
-import * as path from 'path';
 
 dotenv.config();
-
-const PULSE_REPORT_DIR = path.resolve(__dirname, 'pulse-report');
 
 export default defineConfig({
   testDir: './tests',
@@ -16,7 +13,6 @@ export default defineConfig({
   reporter: [
     ['list'],
     ['@arghajit/playwright-pulse-report', {
-      outputDir: PULSE_REPORT_DIR,
       embedAssets: true,
       staticFilePath: true,
     }],
