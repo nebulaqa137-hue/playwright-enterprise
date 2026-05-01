@@ -1,0 +1,259 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\ern3s\\playwright-enterprise\\playwright.config.ts",
+    "rootDir": "C:/Users/ern3s/playwright-enterprise/tests",
+    "forbidOnly": false,
+    "fullyParallel": true,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "C:/Users/ern3s/playwright-enterprise/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "ui",
+        "name": "ui",
+        "testDir": "C:/Users/ern3s/playwright-enterprise/tests/ui",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/ern3s/playwright-enterprise/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "api",
+        "name": "api",
+        "testDir": "C:/Users/ern3s/playwright-enterprise/tests/api",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "html",
+        {
+          "outputDir": "./playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "./playwright-report/report.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.59.1",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "ui\\signup.spec.ts",
+      "file": "ui/signup.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Registro de empresas — Necsus",
+          "file": "ui/signup.spec.ts",
+          "line": 18,
+          "column": 6,
+          "specs": [
+            {
+              "title": "Registro Nacional — Persona Física",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "ui",
+                  "projectName": "ui",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 12522,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[DataFactory] Persona Física: {\n  \"businessName\": \"S de RL de CV González Gonzales y Armas Asociados\",\n  \"rfc\": \"MTVS881125CAP\",\n  \"names\": \"Ricardo\",\n  \"firstSurname\": \"Ojeda de Serrato\",\n  \"secondSurname\": \"Arevalo Torres\",\n  \"position\": \"Subdirector\",\n  \"mobilePhone\": \"5648564843\",\n  \"landLine\": \"8189947856\",\n  \"email\": \"rosa_jiminezcepeda81@testmail.com\"\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Llenar nombre de empresa",
+                          "duration": 0
+                        },
+                        {
+                          "title": "Completar registro como Persona Física",
+                          "duration": 620
+                        },
+                        {
+                          "title": "Verificar envío exitoso",
+                          "duration": 10008
+                        }
+                      ],
+                      "startTime": "2026-05-01T07:03:16.064Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e5334e3b62ca8fd4a4b6-3348a29e4e4b74e4ef97",
+              "file": "ui/signup.spec.ts",
+              "line": 24,
+              "column": 7
+            },
+            {
+              "title": "Registro Nacional — Persona Moral",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "ui",
+                  "projectName": "ui",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 11800,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[DataFactory] Persona Moral: {\n  \"businessName\": \"SAB de CV Mora y Pantoja\",\n  \"rfc\": \"YMY8410281GR\",\n  \"names\": \"Dulce María\",\n  \"firstSurname\": \"Mata Terrazas\",\n  \"secondSurname\": \"Cazares Salcido\",\n  \"position\": \"Representante Legal\",\n  \"mobilePhone\": \"8174853021\",\n  \"landLine\": \"8162234968\",\n  \"email\": \"bernardo63@testmail.com\"\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Completar registro como Persona Moral",
+                          "duration": 393
+                        },
+                        {
+                          "title": "Verificar envío exitoso",
+                          "duration": 10010
+                        }
+                      ],
+                      "startTime": "2026-05-01T07:03:29.008Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e5334e3b62ca8fd4a4b6-981381bd406c9f00a7e7",
+              "file": "ui/signup.spec.ts",
+              "line": 45,
+              "column": 7
+            },
+            {
+              "title": "Registro Internacional",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 30000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "ui",
+                  "projectName": "ui",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 11771,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "[DataFactory] Internacional: {\n  \"businessName\": \"S de RL de CV Reyna SL\",\n  \"tin\": \"KDHEZ9045357\",\n  \"names\": \"Isaias\",\n  \"firstSurname\": \"Aguayo Casares\",\n  \"secondSurname\": \"Xairo Belmonte Rivas\",\n  \"position\": \"Representante Legal\",\n  \"mobilePhone\": \"6654720750\",\n  \"landLine\": \"5699071888\",\n  \"email\": \"beatriz46@testmail.com\"\n}\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "steps": [
+                        {
+                          "title": "Completar registro Internacional",
+                          "duration": 452
+                        },
+                        {
+                          "title": "Verificar envío exitoso",
+                          "duration": 10007
+                        }
+                      ],
+                      "startTime": "2026-05-01T07:03:40.824Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "e5334e3b62ca8fd4a4b6-e28b8e44a68656fa5064",
+              "file": "ui/signup.spec.ts",
+              "line": 61,
+              "column": 7
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-05-01T07:03:14.949Z",
+    "duration": 37896.979,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "playwright-enterprise",
+  "version": "1.0.0",
+  "description": "Enterprise Automation Framework - Necsus Signup",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:ui": "npx playwright test --project=ui",
+    "test:api": "npx playwright test --project=api",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --ui",
+    "report": "npx playwright show-report",
+    "allure:generate": "npx allure generate allure-results --clean",
+    "allure:open": "npx allure open"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.44.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.0",
+    "@faker-js/faker": "^8.4.0",
+    "dotenv": "^16.4.0"
+  }
+}
