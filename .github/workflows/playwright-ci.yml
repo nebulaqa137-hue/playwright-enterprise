@@ -1,5 +1,3 @@
-
-
 name: Playwright Tests — Necsus
 
 on:
@@ -51,6 +49,10 @@ jobs:
 
       - name: Run UI Tests
         run: npx playwright test --project=ui
+
+      - name: Generate Pulse HTML Report
+        if: always()
+        run: npx generate-pulse-report
 
       - name: Upload Pulse Report
         uses: actions/upload-artifact@v4
