@@ -13,6 +13,7 @@
     "allure:open": "npx allure open"
   },
   "devDependencies": {
+    "@arghajit/playwright-pulse-report": "^0.3.5",
     "@faker-js/faker": "^8.4.0",
     "@playwright/test": "^1.44.0",
     "@types/node": "^20.0.0",

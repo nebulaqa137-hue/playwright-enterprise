@@ -1,7 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 import * as dotenv from 'dotenv';
+import * as path from 'path';
 
 dotenv.config();
+
+const PULSE_REPORT_DIR = path.resolve(__dirname, 'pulse-report');
 
 export default defineConfig({
   testDir: './tests',
@@ -11,9 +14,9 @@ export default defineConfig({
   workers: process.env.CI ? 4 : 2,
 
   reporter: [
-    ['monocart-reporter', {
-      name: 'Necsus Playwright Report',
-      outputFile: './monocart-report/index.html',
+    ['list'],
+    ['@arghajit/playwright-pulse-report', {
+      outputDir: PULSE_REPORT_DIR,
     }],
   ],
 

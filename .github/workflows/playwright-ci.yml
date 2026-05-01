@@ -1,3 +1,5 @@
+
+
 name: Playwright Tests — Necsus
 
 on:
@@ -50,12 +52,12 @@ jobs:
       - name: Run UI Tests
         run: npx playwright test --project=ui
 
-      - name: Upload Monocart Report
+      - name: Upload Pulse Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: monocart-report
-          path: monocart-report/
+          name: pulse-report
+          path: pulse-report/
           retention-days: 30
 
       - name: Upload test results on failure
