@@ -1,0 +1,11 @@
+[DataFactory] Internacional: {
+  "businessName": "SAPI de CV Castañeda Naranjo y Villalpando Asociados",
+  "tin": "ZUVQI9304849",
+  "names": "Susana",
+  "firstSurname": "Lebrón Ñañez",
+  "secondSurname": "Cantú León",
+  "position": "Apoderado Legal",
+  "mobilePhone": "6694075198",
+  "landLine": "3338133056",
+  "email": "lucia_delaomaya17@testmail.com"
+}

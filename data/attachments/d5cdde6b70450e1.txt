@@ -1,0 +1,11 @@
+[DataFactory] Persona Física: {
+  "businessName": "SAPI de CV Solorio Zúñiga SA",
+  "rfc": "OVXF730918N54",
+  "names": "María de los Ángeles",
+  "firstSurname": "Oquendo Zapata",
+  "secondSurname": "Villagómez de Ulibarri",
+  "position": "Director General",
+  "mobilePhone": "3367154743",
+  "landLine": "5528702574",
+  "email": "bernardo_atenciosoto41@testmail.com"
+}
