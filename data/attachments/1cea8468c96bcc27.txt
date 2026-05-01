@@ -1,0 +1,11 @@
+[DataFactory] Internacional: {
+  "businessName": "SAB de CV Zayas Lugo y Pulido Asociados",
+  "tin": "SVQAP5212411",
+  "names": "Claudia",
+  "firstSurname": "Bahena Zayas",
+  "secondSurname": "Montaño Quintanilla",
+  "position": "Representante Legal",
+  "mobilePhone": "6667168153",
+  "landLine": "5628192667",
+  "email": "mariaeugenia_xicoyurias31@testmail.com"
+}

@@ -1,0 +1,11 @@
+[DataFactory] Persona Física: {
+  "businessName": "SAB de CV Krauel natera SA",
+  "rfc": "JXHL7904084K9",
+  "names": "María del Carmen",
+  "firstSurname": "Páez Gutiérrez",
+  "secondSurname": "Padilla Candelaria",
+  "position": "Representante Legal",
+  "mobilePhone": "5646733208",
+  "landLine": "8143356419",
+  "email": "alejandro_alcarazsegovia6@testmail.com"
+}
