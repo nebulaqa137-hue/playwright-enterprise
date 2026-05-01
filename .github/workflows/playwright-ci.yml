@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [ main, develop ]
 
-# Cancela runs anteriores del mismo PR/branch para ahorrar minutos
 concurrency:
   group: playwright-${{ github.ref }}
   cancel-in-progress: true
@@ -21,22 +20,18 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      # 1. Checkout del código
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js con cache de npm
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      # 3. Instalar dependencias del proyecto
       - name: Install dependencies
         run: npm ci
 
-      # 4. Cache de browsers de Playwright (ahorra ~2 min por run)
       - name: Cache Playwright browsers
         id: playwright-cache
         uses: actions/cache@v4
@@ -44,40 +39,35 @@ jobs:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
-      # 5a. Instalar browsers + dependencias del SO (primera vez, sin cache)
       - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
-      # 5b. Solo dependencias del SO (cuando hay cache de browsers)
       - name: Install Playwright OS dependencies
         if: steps.playwright-cache.outputs.cache-hit == 'true'
         run: npx playwright install-deps
 
-      # 6. Ejecutar tests de UI
       - name: Run UI Tests
         run: npx playwright test --project=ui
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
           TESTDINO_TOKEN: ${{ secrets.TESTDINO_TOKEN }}
 
-      # 7. Ejecutar tests de API (cuando los haya)
       - name: Run API Tests
         run: npx playwright test --project=api
         env:
           API_URL: ${{ secrets.API_URL }}
           TESTDINO_TOKEN: ${{ secrets.TESTDINO_TOKEN }}
 
-      # 8. Subir resultados a TestDino (siempre, aunque fallen los tests)
-      - name: Upload results to TestDino
-        uses: testdino-hq/testdino-actions@v1
+      - name: Install TestDino CLI
         if: always()
-        with:
-          token: ${{ secrets.TESTDINO_TOKEN }}
-          report-path: ./playwright-report/report.json
+        run: npm install -g tdpw
 
-      # 9. Guardar HTML Report como artefacto en GitHub (30 días)
-      - name: Upload HTML Report
+      - name: Upload results to TestDino
+        if: always()
+        run: npx tdpw upload ./playwright-report --token="${{ secrets.TESTDINO_TOKEN }}" --upload-html
+
+      - name: Upload HTML Report artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -85,7 +75,6 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      # 10. Guardar videos y traces de fallos
       - name: Upload test results on failure
         uses: actions/upload-artifact@v4
         if: failure()
