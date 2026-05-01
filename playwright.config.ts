@@ -12,10 +12,7 @@ export default defineConfig({
 
   reporter: [
     ['list'],
-    ['@arghajit/playwright-pulse-report', {
-      embedAssets: true,
-      staticFilePath: true,
-    }],
+    ['allure-playwright'],
   ],
 
   use: {

@@ -17,6 +17,8 @@
     "@faker-js/faker": "^8.4.0",
     "@playwright/test": "^1.44.0",
     "@types/node": "^20.0.0",
+    "allure-commandline": "^2.38.1",
+    "allure-playwright": "^3.7.1",
     "dotenv": "^16.4.0",
     "monocart-reporter": "^2.10.1",
     "ts-node": "^10.9.0",
