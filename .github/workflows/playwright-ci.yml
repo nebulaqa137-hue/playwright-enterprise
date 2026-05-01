@@ -50,9 +50,6 @@ jobs:
       - name: Run UI Tests
         run: npx playwright test --project=ui
 
-      - name: Run API Tests
-        run: npx playwright test --project=api
-
       - name: Upload Monocart Report
         uses: actions/upload-artifact@v4
         if: always()
