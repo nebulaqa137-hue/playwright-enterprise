@@ -17,6 +17,8 @@ export default defineConfig({
     ['list'],
     ['@arghajit/playwright-pulse-report', {
       outputDir: PULSE_REPORT_DIR,
+      embedAssets: true,
+      staticFilePath: true,
     }],
   ],
 
