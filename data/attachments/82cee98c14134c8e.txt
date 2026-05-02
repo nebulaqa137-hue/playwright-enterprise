@@ -1,0 +1,11 @@
+[DataFactory] Internacional: {
+  "businessName": "SA de CV Mejía Rivero y Naranjo Asociados",
+  "tin": "IDBHO5003468",
+  "names": "Alejandra",
+  "firstSurname": "Archuleta Alaniz",
+  "secondSurname": "Batista Caballero",
+  "position": "Apoderado Legal",
+  "mobilePhone": "8153528668",
+  "landLine": "5610055278",
+  "email": "ruben_palaciossalazar@testmail.com"
+}
