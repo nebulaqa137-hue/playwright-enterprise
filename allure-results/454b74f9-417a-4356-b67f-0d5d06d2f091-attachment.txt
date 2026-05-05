@@ -1,0 +1,11 @@
+[DataFactory] Persona Física: {
+  "businessName": "SA de CV Yanes Caldera Hermanos",
+  "rfc": "IFAR700601WX9",
+  "names": "Alexa",
+  "firstSurname": "Soliz Mondragón",
+  "secondSurname": "Villagómez de Orellana",
+  "position": "Coordinador de Proyectos",
+  "mobilePhone": "6614787863",
+  "landLine": "5626956457",
+  "email": "jorgeluis_acevedodehidalgo36@testmail.com"
+}

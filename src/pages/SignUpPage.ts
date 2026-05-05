@@ -1,5 +1,6 @@
-import { Page, expect } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { BasePage } from './BasePage';
+import { config } from '../config/environments';
 import {
   PersonaFisicaData,
   PersonaMoralData,
@@ -9,7 +10,7 @@ import {
 export class SignUpPage extends BasePage {
   // ── Locators ──────────────────────────────────────────────────────────────
 
-  private readonly businessNameInput = this.page.locator('input[name="businessName"]');
+  private readonly businessNameInput = this.byFieldName('businessName');
 
   // Dropdowns de origen y personalidad
   private readonly origenDropdown = this.page
@@ -21,43 +22,49 @@ export class SignUpPage extends BasePage {
     .locator('.multiselect__select');
 
   // Campos Persona Física
-  private readonly naturalRfcInput = this.page.locator('input[name="naturalRfc"]');
-  private readonly confirmNaturalRfcInput = this.page.locator('input[name="confirmNaturalRFC"]');
+  private readonly naturalRfcInput = this.byFieldName('naturalRfc');
+  private readonly confirmNaturalRfcInput = this.byFieldName('confirmNaturalRFC');
 
   // Campos Persona Moral
-  private readonly legalRfcInput = this.page.locator('input[name="legalRfc"]');
-  private readonly confirmLegalRfcInput = this.page.locator('input[name="confirmLegalRFC"]');
+  private readonly legalRfcInput = this.byFieldName('legalRfc');
+  private readonly confirmLegalRfcInput = this.byFieldName('confirmLegalRFC');
 
   // Campos Internacional
-  private readonly tinInput = this.page.locator('input[name="tin"]');
+  private readonly tinInput = this.byFieldName('tin');
 
   // Datos personales (comunes)
-  private readonly namesInput = this.page.locator('input[name="names"]');
-  private readonly firstSurnameInput = this.page.locator('input[name="firstSurname"]');
-  private readonly secondSurnameInput = this.page.locator('input[name="secondSurname"]');
-  private readonly positionInput = this.page.locator('input[name="position"]');
+  private readonly namesInput = this.byFieldName('names');
+  private readonly firstSurnameInput = this.byFieldName('firstSurname');
+  private readonly secondSurnameInput = this.byFieldName('secondSurname');
+  private readonly positionInput = this.byFieldName('position');
 
   // Teléfonos Nacional
-  private readonly mobilePhoneInput = this.page.locator('input[name="mobilePhone"]');
-  private readonly landLineInput = this.page.locator('input[name="landLine"]');
+  private readonly mobilePhoneInput = this.byFieldName('mobilePhone');
+  private readonly landLineInput = this.byFieldName('landLine');
 
   // Teléfonos Internacional
-  private readonly foreignMobileInput = this.page.locator('input[name="foreignmobilePhone"]');
-  private readonly foreignLandLineInput = this.page.locator('input[name="foreignlandLine"]');
+  private readonly foreignMobileInput = this.byFieldName('foreignmobilePhone');
+  private readonly foreignLandLineInput = this.byFieldName('foreignlandLine');
 
   // Correo
-  private readonly emailInput = this.page.locator('input[name="email"]');
-  private readonly confirmEmailInput = this.page.locator('input[name="confirmEmail"]');
+  private readonly emailInput = this.byFieldName('email');
+  private readonly confirmEmailInput = this.byFieldName('confirmEmail');
 
   // Términos y botón
-  private readonly termsCheckbox = this.page.locator('.radio__check_mark');
-  private readonly saveButton = this.page.locator('button[name="save"]');
+  private readonly termsCheckbox = this.page.getByRole('checkbox').or(this.page.locator('.radio__check_mark'));
+  private readonly saveButton = this.page
+    .getByRole('button', { name: /guardar|registrar|enviar/i })
+    .or(this.byFieldName('save'));
 
   // ── Navegación ────────────────────────────────────────────────────────────
 
-  async goToSignUp() {
-    await this.page.goto(process.env.BASE_URL || 'https://necsus.com.mx/signup/#/');
+  async goto() {
+    await this.navigate(config.baseUrl);
     await this.waitForVisible(this.businessNameInput);
+  }
+
+  async goToSignUp() {
+    await this.goto();
   }
 
   // ── Secciones reutilizables ───────────────────────────────────────────────
@@ -118,7 +125,7 @@ export class SignUpPage extends BasePage {
   }
 
   private async acceptTermsAndSubmit() {
-    await this.termsCheckbox.click();
+    await this.termsCheckbox.first().click();
     await this.saveButton.click();
   }
 

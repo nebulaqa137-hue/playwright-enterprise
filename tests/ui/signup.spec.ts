@@ -1,9 +1,4 @@
-import { test, expect } from '../../src/fixtures';
-import {
-  generatePersonaFisicaData,
-  generatePersonaMoralData,
-  generateInternacionalData,
-} from '../../src/utils/dataFactory';
+import { test } from '../../src/fixtures';
 
 /**
  * Suite: Registro de empresas — Necsus Signup
@@ -15,24 +10,22 @@ import {
  *
  * Todos los datos son generados con faker — sin valores hardcodeados.
  */
-test.describe('Registro de empresas — Necsus', () => {
+test.describe('Registro de empresas — Necsus @regression', () => {
 
   test.describe.configure({ mode: 'serial' }); // corren en serie para no chocar en la misma URL
 
   // ── Test 1: Nacional Persona Física ──────────────────────────────────────
 
-  test('Registro Nacional — Persona Física', async ({ signUpPage }) => {
-    const data = generatePersonaFisicaData();
-
-    // Log de los datos generados (visible en el reporte de TestDino)
-    console.log('[DataFactory] Persona Física:', JSON.stringify(data, null, 2));
-
-    await test.step('Llenar nombre de empresa', async () => {
-      // goToSignUp ya fue llamado por el fixture
-    });
-
+  test('Registro Nacional — Persona Física @smoke @signup', async ({
+    createPersonaFisicaUser,
+    signUpPage,
+  }, testInfo) => {
     await test.step('Completar registro como Persona Física', async () => {
-      await signUpPage.registerNacionalPersonaFisica(data);
+      const data = await createPersonaFisicaUser();
+      await testInfo.attach('persona-fisica-data', {
+        body: JSON.stringify(data, null, 2),
+        contentType: 'application/json',
+      });
     });
 
     await test.step('Verificar envío exitoso', async () => {
@@ -42,13 +35,16 @@ test.describe('Registro de empresas — Necsus', () => {
 
   // ── Test 2: Nacional Persona Moral ───────────────────────────────────────
 
-  test('Registro Nacional — Persona Moral', async ({ signUpPage }) => {
-    const data = generatePersonaMoralData();
-
-    console.log('[DataFactory] Persona Moral:', JSON.stringify(data, null, 2));
-
+  test('Registro Nacional — Persona Moral @regression @signup', async ({
+    createPersonaMoralUser,
+    signUpPage,
+  }, testInfo) => {
     await test.step('Completar registro como Persona Moral', async () => {
-      await signUpPage.registerNacionalPersonaMoral(data);
+      const data = await createPersonaMoralUser();
+      await testInfo.attach('persona-moral-data', {
+        body: JSON.stringify(data, null, 2),
+        contentType: 'application/json',
+      });
     });
 
     await test.step('Verificar envío exitoso', async () => {
@@ -58,13 +54,16 @@ test.describe('Registro de empresas — Necsus', () => {
 
   // ── Test 3: Internacional ─────────────────────────────────────────────────
 
-  test('Registro Internacional', async ({ signUpPage }) => {
-    const data = generateInternacionalData();
-
-    console.log('[DataFactory] Internacional:', JSON.stringify(data, null, 2));
-
+  test('Registro Internacional @regression @signup', async ({
+    createInternacionalUser,
+    signUpPage,
+  }, testInfo) => {
     await test.step('Completar registro Internacional', async () => {
-      await signUpPage.registerInternacional(data);
+      const data = await createInternacionalUser();
+      await testInfo.attach('internacional-data', {
+        body: JSON.stringify(data, null, 2),
+        contentType: 'application/json',
+      });
     });
 
     await test.step('Verificar envío exitoso', async () => {

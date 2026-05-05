@@ -1,0 +1,11 @@
+[DataFactory] Internacional: {
+  "businessName": "SAB de CV Baeza y Carrasquillo",
+  "tin": "YNTIL5065321",
+  "names": "Rafael",
+  "firstSurname": "Varela Heredia",
+  "secondSurname": "Águilar de Ruiz",
+  "position": "Socio",
+  "mobilePhone": "3348704003",
+  "landLine": "6629220400",
+  "email": "yamileth63@testmail.com"
+}

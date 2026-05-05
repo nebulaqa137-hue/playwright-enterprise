@@ -54,7 +54,7 @@ jobs:
         run: npx playwright install-deps
 
       - name: Run UI Tests
-        run: npx playwright test --project=ui
+        run: npx playwright test --project=ui-chromium --grep @smoke
 
       - name: Verify allure-results exists
         if: always()

@@ -14,9 +14,12 @@
       "@utils/*": ["src/utils/*"],
       "@fixtures/*": ["src/fixtures/*"],
       "@config/*": ["src/config/*"],
+      "@test-data/*": ["test-data/*"],
       "@api/*": ["src/api/*"]
     }
   },
   "include": ["src/**/*", "tests/**/*", "step-definitions/**/*"],
   "exclude": ["node_modules", "dist"]
 }
+
+//Work

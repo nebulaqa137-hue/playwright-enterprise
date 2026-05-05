@@ -3,7 +3,7 @@ import { Page, Locator, expect } from '@playwright/test';
 export abstract class BasePage {
   constructor(protected page: Page) {}
 
-  async navigate(path: string = '') {
+  async navigate(path = '') {
     await this.page.goto(path);
   }
 
@@ -33,5 +33,13 @@ export abstract class BasePage {
 
   async clickDropdownOption(optionText: string) {
     await this.page.getByRole('option', { name: optionText }).click();
+  }
+
+  protected byTestId(testId: string) {
+    return this.page.getByTestId(testId);
+  }
+
+  protected byFieldName(name: string) {
+    return this.page.locator(`[name="${name}"]`);
   }
 }

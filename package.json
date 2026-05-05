@@ -4,8 +4,11 @@
   "description": "Enterprise Automation Framework - Necsus Signup",
   "scripts": {
     "test": "npx playwright test",
-    "test:ui": "npx playwright test --project=ui",
+    "test:ui": "npx playwright test --project=ui-chromium",
+    "test:ui:all": "npx playwright test --project=ui-chromium --project=ui-firefox --project=ui-webkit",
     "test:api": "npx playwright test --project=api",
+    "test:smoke": "npx playwright test --grep \"@smoke\"",
+    "test:regression": "npx playwright test --grep \"@regression\"",
     "test:headed": "npx playwright test --headed",
     "test:debug": "npx playwright test --ui",
     "report": "npx playwright show-report",

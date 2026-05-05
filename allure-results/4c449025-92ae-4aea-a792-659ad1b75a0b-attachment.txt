@@ -1,0 +1,11 @@
+[DataFactory] Persona Moral: {
+  "businessName": "SAB de CV López SA",
+  "rfc": "XHH801110F4W",
+  "names": "Laura",
+  "firstSurname": "Batista Véliz",
+  "secondSurname": "Santacruz Sanabria",
+  "position": "Director General",
+  "mobilePhone": "3337621588",
+  "landLine": "3322859117",
+  "email": "ramiro.oquendogalarza78@testmail.com"
+}
