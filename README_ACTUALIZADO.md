@@ -1,273 +1,273 @@
-# Playwright Enterprise Framework - Necsus
+  # Playwright Enterprise Framework - Necsus
 
-Framework de automatizacion enterprise con Playwright, TypeScript, Page Object Model, fixtures personalizados, Allure Report y GitHub Actions.
+  Framework de automatizacion enterprise con Playwright, TypeScript, Page Object Model, fixtures personalizados, Allure Report y GitHub Actions.
 
-## Stack
+  ## Stack
 
-| Herramienta | Version | Proposito |
-|---|---:|---|
-| Playwright | ^1.44 | Framework principal de automatizacion |
-| TypeScript | ^5.4 | Lenguaje base del framework |
-| Faker.js | ^8.4 | Generacion dinamica de datos de prueba |
-| Allure Playwright | ^3.7 | Reporter principal de resultados |
-| Allure Commandline | ^2.38 | Generacion y apertura de reportes Allure |
-| GitHub Actions | - | CI/CD |
+  | Herramienta | Version | Proposito |
+  |---|---:|---|
+  | Playwright | ^1.44 | Framework principal de automatizacion |
+  | TypeScript | ^5.4 | Lenguaje base del framework |
+  | Faker.js | ^8.4 | Generacion dinamica de datos de prueba |
+  | Allure Playwright | ^3.7 | Reporter principal de resultados |
+  | Allure Commandline | ^2.38 | Generacion y apertura de reportes Allure |
+  | GitHub Actions | - | CI/CD |
 
-## Estructura
+  ## Estructura
 
-```text
-playwright-enterprise/
-├── .github/
-│   └── workflows/
-│       └── playwright-ci.yml             # Pipeline CI/CD
-├── src/
-│   ├── api/                              # Clientes/helpers API
-│   ├── components/                       # Componentes reutilizables de UI
-│   ├── config/
-│   │   └── environments.ts               # Configuracion por ambiente
-│   ├── fixtures/
-│   │   ├── index.ts                      # Export central de test/expect
-│   │   ├── pages.fixture.ts              # Fixtures de Page Objects
-│   │   └── signup.fixture.ts             # Fixtures de datos y flujos signup
-│   ├── pages/
-│   │   ├── BasePage.ts                   # Clase base para POM
-│   │   └── SignUpPage.ts                 # Page Object del formulario signup
-│   └── utils/
-│       └── dataFactory.ts                # Generadores de datos con Faker
-├── test-data/
-│   └── signupTestData.ts                 # Datos estaticos de respaldo/debug
-├── tests/
-│   ├── api/                              # Tests API
-│   ├── hybrid/                           # Tests combinados UI/API
-│   └── ui/
-│       └── signup.spec.ts                # Tests UI con tags
-├── allure-results/                       # Resultados Allure generados
-├── playwright-report/                    # Reporte HTML generado
-├── test-results/                         # Artefactos de ejecucion
-├── playwright.config.ts                  # Config principal Playwright
-├── tsconfig.json                         # Config TypeScript y aliases
-├── .env.example
-└── package.json
-```
+  ```text
+  playwright-enterprise/
+  ├── .github/
+  │   └── workflows/
+  │       └── playwright-ci.yml             # Pipeline CI/CD
+  ├── src/
+  │   ├── api/                              # Clientes/helpers API
+  │   ├── components/                       # Componentes reutilizables de UI
+  │   ├── config/
+  │   │   └── environments.ts               # Configuracion por ambiente
+  │   ├── fixtures/
+  │   │   ├── index.ts                      # Export central de test/expect
+  │   │   ├── pages.fixture.ts              # Fixtures de Page Objects
+  │   │   └── signup.fixture.ts             # Fixtures de datos y flujos signup
+  │   ├── pages/
+  │   │   ├── BasePage.ts                   # Clase base para POM
+  │   │   └── SignUpPage.ts                 # Page Object del formulario signup
+  │   └── utils/
+  │       └── dataFactory.ts                # Generadores de datos con Faker
+  ├── test-data/
+  │   └── signupTestData.ts                 # Datos estaticos de respaldo/debug
+  ├── tests/
+  │   ├── api/                              # Tests API
+  │   ├── hybrid/                           # Tests combinados UI/API
+  │   └── ui/
+  │       └── signup.spec.ts                # Tests UI con tags
+  ├── allure-results/                       # Resultados Allure generados
+  ├── playwright-report/                    # Reporte HTML generado
+  ├── test-results/                         # Artefactos de ejecucion
+  ├── playwright.config.ts                  # Config principal Playwright
+  ├── tsconfig.json                         # Config TypeScript y aliases
+  ├── .env.example
+  └── package.json
+  ```
 
-## Arquitectura
+  ## Arquitectura
 
-### Page Object Model
+  ### Page Object Model
 
-Los flujos de UI viven en `src/pages`. Cada pagina encapsula:
+  Los flujos de UI viven en `src/pages`. Cada pagina encapsula:
 
-| Archivo | Responsabilidad |
-|---|---|
-| `BasePage.ts` | Navegacion, esperas, helpers comunes y acceso a locators reutilizables |
-| `SignUpPage.ts` | Locators y acciones del formulario de registro Necsus |
+  | Archivo | Responsabilidad |
+  |---|---|
+  | `BasePage.ts` | Navegacion, esperas, helpers comunes y acceso a locators reutilizables |
+  | `SignUpPage.ts` | Locators y acciones del formulario de registro Necsus |
 
-Los tests no deben manipular locators directamente. La interaccion con la UI debe pasar por metodos del Page Object, por ejemplo:
+  Los tests no deben manipular locators directamente. La interaccion con la UI debe pasar por metodos del Page Object, por ejemplo:
 
-```typescript
-await signUpPage.registerNacionalPersonaFisica(data);
-await signUpPage.expectSubmitSuccess();
-```
-
-### Fixtures personalizados
-
-Los fixtures viven en `src/fixtures` y separan responsabilidades:
-
-| Fixture | Proposito |
-|---|---|
-| `signUpPage` | Inicializa el Page Object y navega al formulario |
-| `personaFisicaData` | Genera datos dinamicos para Persona Fisica |
-| `personaMoralData` | Genera datos dinamicos para Persona Moral |
-| `internacionalData` | Genera datos dinamicos para registro Internacional |
-| `createPersonaFisicaUser` | Ejecuta el flujo comun de creacion Persona Fisica |
-| `createPersonaMoralUser` | Ejecuta el flujo comun de creacion Persona Moral |
-| `createInternacionalUser` | Ejecuta el flujo comun de creacion Internacional |
-
-Ejemplo de uso:
-
-```typescript
-import { test } from '../../src/fixtures';
-
-test('Registro Nacional - Persona Fisica @smoke @signup', async ({
-  createPersonaFisicaUser,
-  signUpPage,
-}, testInfo) => {
-  const data = await createPersonaFisicaUser();
-
-  await testInfo.attach('persona-fisica-data', {
-    body: JSON.stringify(data, null, 2),
-    contentType: 'application/json',
-  });
-
+  ```typescript
+  await signUpPage.registerNacionalPersonaFisica(data);
   await signUpPage.expectSubmitSuccess();
-});
-```
+  ```
 
-## Locators
+  ### Fixtures personalizados
 
-Buenas practicas aplicadas:
+  Los fixtures viven en `src/fixtures` y separan responsabilidades:
 
-| Practica | Estado |
-|---|---|
-| Preferir `getByRole` | Aplicado en botones, opciones y checkbox cuando el DOM lo permite |
-| Usar `getByTestId` | Habilitado con `testIdAttribute: 'data-testid'` |
-| Evitar XPath | No se usa XPath |
-| Centralizar selectores | Selectores ubicados dentro de Page Objects |
-| Evitar selectores en tests | Los tests usan fixtures y metodos del POM |
+  | Fixture | Proposito |
+  |---|---|
+  | `signUpPage` | Inicializa el Page Object y navega al formulario |
+  | `personaFisicaData` | Genera datos dinamicos para Persona Fisica |
+  | `personaMoralData` | Genera datos dinamicos para Persona Moral |
+  | `internacionalData` | Genera datos dinamicos para registro Internacional |
+  | `createPersonaFisicaUser` | Ejecuta el flujo comun de creacion Persona Fisica |
+  | `createPersonaMoralUser` | Ejecuta el flujo comun de creacion Persona Moral |
+  | `createInternacionalUser` | Ejecuta el flujo comun de creacion Internacional |
 
-Cuando la aplicacion no expone roles o `data-testid`, se usan selectores CSS estables como `[name="email"]`.
+  Ejemplo de uso:
 
-## Tags
+  ```typescript
+  import { test } from '../../src/fixtures';
 
-Los tests usan tags en el titulo para filtrar ejecuciones:
+  test('Registro Nacional - Persona Fisica @smoke @signup', async ({
+    createPersonaFisicaUser,
+    signUpPage,
+  }, testInfo) => {
+    const data = await createPersonaFisicaUser();
 
-| Tag | Uso |
-|---|---|
-| `@smoke` | Validacion minima critica |
-| `@regression` | Casos completos de regresion |
-| `@signup` | Casos asociados al modulo signup |
+    await testInfo.attach('persona-fisica-data', {
+      body: JSON.stringify(data, null, 2),
+      contentType: 'application/json',
+    });
 
-Ejemplos:
+    await signUpPage.expectSubmitSuccess();
+  });
+  ```
 
-```bash
-npm run test:smoke
-npm run test:regression
-npx playwright test --grep "@signup"
-```
+  ## Locators
 
-## Playwright Config
+  Buenas practicas aplicadas:
 
-Configuracion principal en `playwright.config.ts`:
+  | Practica | Estado |
+  |---|---|
+  | Preferir `getByRole` | Aplicado en botones, opciones y checkbox cuando el DOM lo permite |
+  | Usar `getByTestId` | Habilitado con `testIdAttribute: 'data-testid'` |
+  | Evitar XPath | No se usa XPath |
+  | Centralizar selectores | Selectores ubicados dentro de Page Objects |
+  | Evitar selectores en tests | Los tests usan fixtures y metodos del POM |
 
-| Configuracion | Valor |
-|---|---|
-| `testDir` | `./tests` |
-| `timeout` | `45_000` |
-| `expect.timeout` | `10_000` |
-| `retries` | `2` en CI, `0` local |
-| `workers` | `4` en CI, automatico local |
-| `trace` | `on-first-retry` |
-| `screenshot` | `only-on-failure` |
-| `video` | `on-first-retry` |
-| `testIdAttribute` | `data-testid` |
+  Cuando la aplicacion no expone roles o `data-testid`, se usan selectores CSS estables como `[name="email"]`.
 
-### Proyectos
+  ## Tags
 
-| Proyecto | Uso |
-|---|---|
-| `ui-chromium` | UI en Desktop Chrome |
-| `ui-firefox` | UI en Desktop Firefox |
-| `ui-webkit` | UI en Desktop Safari/WebKit |
-| `api` | Tests API |
+  Los tests usan tags en el titulo para filtrar ejecuciones:
 
-## Reportes
+  | Tag | Uso |
+  |---|---|
+  | `@smoke` | Validacion minima critica |
+  | `@regression` | Casos completos de regresion |
+  | `@signup` | Casos asociados al modulo signup |
 
-El framework deja activos HTML + Allure.
+  Ejemplos:
 
-| Reporter | Salida |
-|---|---|
-| `list` | Consola |
-| `html` | `playwright-report/` |
-| `allure-playwright` | `allure-results/` |
+  ```bash
+  npm run test:smoke
+  npm run test:regression
+  npx playwright test --grep "@signup"
+  ```
 
-Comandos:
+  ## Playwright Config
 
-```bash
-npm run report
-npm run allure:generate
-npm run allure:open
-```
+  Configuracion principal en `playwright.config.ts`:
 
-## Setup local
+  | Configuracion | Valor |
+  |---|---|
+  | `testDir` | `./tests` |
+  | `timeout` | `45_000` |
+  | `expect.timeout` | `10_000` |
+  | `retries` | `2` en CI, `0` local |
+  | `workers` | `4` en CI, automatico local |
+  | `trace` | `on-first-retry` |
+  | `screenshot` | `only-on-failure` |
+  | `video` | `on-first-retry` |
+  | `testIdAttribute` | `data-testid` |
 
-```bash
-npm install
-npx playwright install --with-deps chromium
-cp .env.example .env
-```
+  ### Proyectos
 
-Variables principales:
+  | Proyecto | Uso |
+  |---|---|
+  | `ui-chromium` | UI en Desktop Chrome |
+  | `ui-firefox` | UI en Desktop Firefox |
+  | `ui-webkit` | UI en Desktop Safari/WebKit |
+  | `api` | Tests API |
 
-| Variable | Descripcion |
-|---|---|
-| `BASE_URL` | URL del formulario signup |
-| `API_URL` | URL base API |
-| `ENV` | Ambiente objetivo |
-| `TEST_EMAIL` | Email fijo opcional para debug |
-| `TEST_PHONE` | Telefono fijo opcional para debug |
+  ## Reportes
 
-## Ejecucion
+  El framework deja activos HTML + Allure.
 
-```bash
-# Todos los tests
-npm test
+  | Reporter | Salida |
+  |---|---|
+  | `list` | Consola |
+  | `html` | `playwright-report/` |
+  | `allure-playwright` | `allure-results/` |
 
-# UI principal en Chromium
-npm run test:ui
+  Comandos:
 
-# UI en Chromium, Firefox y WebKit
-npm run test:ui:all
+  ```bash
+  npm run report
+  npm run allure:generate
+  npm run allure:open
+  ```
 
-# API
-npm run test:api
+  ## Setup local
 
-# Smoke
-npm run test:smoke
+  ```bash
+  npm install
+  npx playwright install --with-deps chromium
+  cp .env.example .env
+  ```
 
-# Regression
-npm run test:regression
+  Variables principales:
 
-# Headed
-npm run test:headed
+  | Variable | Descripcion |
+  |---|---|
+  | `BASE_URL` | URL del formulario signup |
+  | `API_URL` | URL base API |
+  | `ENV` | Ambiente objetivo |
+  | `TEST_EMAIL` | Email fijo opcional para debug |
+  | `TEST_PHONE` | Telefono fijo opcional para debug |
 
-# Debug UI
-npm run test:debug
-```
+  ## Ejecucion
 
-## CI/CD
+  ```bash
+  # Todos los tests
+  npm test
 
-El workflow `.github/workflows/playwright-ci.yml` ejecuta:
+  # UI principal en Chromium
+  npm run test:ui
 
-```bash
-npx playwright test --project=ui-chromium --grep @smoke
-```
+  # UI en Chromium, Firefox y WebKit
+  npm run test:ui:all
 
-Despues genera el reporte Allure:
+  # API
+  npm run test:api
 
-```bash
-npx allure generate allure-results --clean -o allure-report
-```
+  # Smoke
+  npm run test:smoke
 
-Y publica el reporte en GitHub Pages mediante la rama `gh-pages`.
+  # Regression
+  npm run test:regression
 
-## Datos de prueba
+  # Headed
+  npm run test:headed
 
-Los tests principales usan `src/utils/dataFactory.ts` para generar datos dinamicos con Faker.
+  # Debug UI
+  npm run test:debug
+  ```
 
-`test-data/signupTestData.ts` queda como dataset estatico de respaldo para debugging o reproduccion de casos especificos.
+  ## CI/CD
 
-Flujos cubiertos actualmente:
+  El workflow `.github/workflows/playwright-ci.yml` ejecuta:
 
-| Flujo | Data factory | Fixture de flujo | Tags |
-|---|---|---|---|
-| Nacional Persona Fisica | `generatePersonaFisicaData` | `createPersonaFisicaUser` | `@smoke @signup` |
-| Nacional Persona Moral | `generatePersonaMoralData` | `createPersonaMoralUser` | `@regression @signup` |
-| Internacional | `generateInternacionalData` | `createInternacionalUser` | `@regression @signup` |
+  ```bash
+  npx playwright test --project=ui-chromium --grep @smoke
+  ```
 
-## Validacion realizada
+  Despues genera el reporte Allure:
 
-Se valido el refactor con:
+  ```bash
+  npx allure generate allure-results --clean -o allure-report
+  ```
 
-```bash
-npx tsc --noEmit
-npx playwright test --list
-npx playwright test --project=ui-chromium --grep '@smoke'
-```
+  Y publica el reporte en GitHub Pages mediante la rama `gh-pages`.
 
-Resultado:
+  ## Datos de prueba
 
-```text
-TypeScript OK
-Playwright descubre 9 tests
-Smoke en Chromium: 1 passed
-```
+  Los tests principales usan `src/utils/dataFactory.ts` para generar datos dinamicos con Faker.
+
+  `test-data/signupTestData.ts` queda como dataset estatico de respaldo para debugging o reproduccion de casos especificos.
+
+  Flujos cubiertos actualmente:
+
+  | Flujo | Data factory | Fixture de flujo | Tags |
+  |---|---|---|---|
+  | Nacional Persona Fisica | `generatePersonaFisicaData` | `createPersonaFisicaUser` | `@smoke @signup` |
+  | Nacional Persona Moral | `generatePersonaMoralData` | `createPersonaMoralUser` | `@regression @signup` |
+  | Internacional | `generateInternacionalData` | `createInternacionalUser` | `@regression @signup` |
+
+  ## Validacion realizada
+
+  Se valido el refactor con:
+
+  ```bash
+  npx tsc --noEmit
+  npx playwright test --list
+  npx playwright test --project=ui-chromium --grep '@smoke'
+  ```
+
+  Resultado:
+
+  ```text
+  TypeScript OK
+  Playwright descubre 9 tests
+  Smoke en Chromium: 1 passed
+  ```
 
